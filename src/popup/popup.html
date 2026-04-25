@@ -9,7 +9,16 @@
 <body>
   <main>
     <header>
-      <h1>思考翻译</h1>
+      <div class="title-row">
+        <h1>思考翻译</h1>
+        <a
+          id="versionLink"
+          class="version-link"
+          href="https://github.com/MOLAaaaaaaa"
+          target="_blank"
+          rel="noreferrer"
+        >v0.0.0</a>
+      </div>
       <p id="host">读取当前页面中</p>
     </header>
 
@@ -32,14 +41,8 @@
     </section>
 
     <footer>
-      <div class="author">
-        <img src="../../assets/avatar.png" alt="Author" class="avatar">
-        <a href="https://github.com/MOLAaaaaaaa/llm-thinking-translator" target="_blank">MOLAaaaaaaa</a>
-      </div>
-      <div class="footer-right">
-        <a href="../options/options.html" target="_blank">打开设置</a>
-        <span id="status"></span>
-      </div>
+      <a href="../options/options.html" target="_blank">打开设置</a>
+      <span id="status"></span>
     </footer>
   </main>
   <script src="popup.js"></script>

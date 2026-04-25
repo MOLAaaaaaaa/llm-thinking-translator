@@ -3,6 +3,7 @@
 const runtime = typeof chrome !== 'undefined' ? chrome : browser;
 const els = {
   host: document.getElementById('host'),
+  versionLink: document.getElementById('versionLink'),
   enabled: document.getElementById('enabled'),
   autoTranslate: document.getElementById('autoTranslate'),
   debug: document.getElementById('debug'),
@@ -18,6 +19,11 @@ const els = {
 init();
 
 async function init() {
+  const manifestVersion = runtime.runtime?.getManifest?.().version;
+  if (manifestVersion && els.versionLink) {
+    els.versionLink.textContent = `v${manifestVersion}`;
+  }
+
   const settings = await sendRuntime({ type: 'GET_SETTINGS' }).then(r => r.settings);
   els.enabled.checked = Boolean(settings.enabled);
   els.autoTranslate.checked = Boolean(settings.autoTranslate);

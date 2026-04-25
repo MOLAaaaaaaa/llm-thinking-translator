@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+
+node_modules/
+dist/
+build/
+*.zip
+*.crx
+*.pem
+
+.env
+.env.*
+*.log
+tmp/
+temp/

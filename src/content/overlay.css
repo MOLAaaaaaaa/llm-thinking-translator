@@ -1,0 +1,352 @@
+.llmtt-panel,
+.llmtt-panel *,
+.llmtt-launcher,
+.llmtt-launcher * {
+  box-sizing: border-box;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+.llmtt-launcher {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2147483647;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: #202020;
+  color: #fff;
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  user-select: none;
+}
+
+.llmtt-launcher:hover,
+.llmtt-launcher-active {
+  background: #000;
+}
+
+.llmtt-launcher span {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.llmtt-launcher small {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #202020;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.llmtt-panel {
+  position: fixed;
+  right: 18px;
+  bottom: 74px;
+  width: min(440px, calc(100vw - 36px));
+  max-height: min(620px, calc(100vh - 96px));
+  z-index: 2147483646;
+  background: rgba(24, 24, 24, 0.96);
+  color: #f5f5f5;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.36);
+  overflow: hidden;
+  backdrop-filter: blur(18px);
+}
+
+.llmtt-hidden {
+  display: none !important;
+}
+
+.llmtt-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.llmtt-version {
+  display: inline-block;
+  margin-left: 6px;
+  opacity: 0.66;
+  font-size: 12px;
+}
+
+.llmtt-panel-buttons,
+.llmtt-candidate-actions,
+.llmtt-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.llmtt-panel button,
+.llmtt-translation-card button {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.llmtt-panel:not(.llmtt-debug-enabled) .llmtt-debug-only {
+  display: none !important;
+}
+
+.llmtt-panel button:hover,
+.llmtt-translation-card button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.llmtt-panel-status {
+  padding: 9px 12px;
+  color: rgba(245, 245, 245, 0.76);
+  font-size: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.llmtt-panel-body {
+  max-height: 420px;
+  overflow: auto;
+  padding: 10px;
+}
+
+.llmtt-candidate-row {
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.llmtt-candidate-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.llmtt-candidate-top span {
+  color: rgba(245, 245, 245, 0.72);
+}
+
+.llmtt-candidate-preview {
+  color: rgba(245, 245, 245, 0.94);
+  font-size: 12px;
+  line-height: 1.45;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.llmtt-candidate-reasons {
+  color: rgba(245, 245, 245, 0.56);
+  font-size: 11px;
+  line-height: 1.35;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.llmtt-more {
+  color: rgba(245, 245, 245, 0.62);
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 4px 2px 8px;
+}
+
+.llmtt-empty {
+  color: rgba(245, 245, 245, 0.72);
+  font-size: 13px;
+  line-height: 1.55;
+  padding: 12px;
+}
+
+.llmtt-panel-footer {
+  padding: 10px 12px 12px;
+  color: rgba(245, 245, 245, 0.52);
+  font-size: 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.llmtt-candidate {
+  outline: 2px dashed rgba(80, 80, 80, 0.78) !important;
+  outline-offset: 2px !important;
+}
+
+.llmtt-candidate-strong {
+  outline-color: rgba(0, 0, 0, 0.88) !important;
+}
+
+.llmtt-translation-host {
+  flex-wrap: wrap !important;
+  align-items: stretch !important;
+}
+
+.llmtt-busy {
+  outline: 2px solid rgba(40, 40, 40, 0.9) !important;
+  outline-offset: 2px !important;
+}
+
+.llmtt-flash {
+  animation: llmtt-flash 1.6s ease-in-out;
+}
+
+@keyframes llmtt-flash {
+  0%, 100% { box-shadow: none; }
+  25%, 75% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.16); }
+}
+
+.llmtt-translation-card {
+  margin: 10px 0;
+  padding: 12px;
+  width: 100% !important;
+  max-width: min(720px, 100%) !important;
+  min-width: 0 !important;
+  flex: 0 0 100% !important;
+  flex-basis: 100% !important;
+  align-self: stretch !important;
+  grid-column: 1 / -1 !important;
+  clear: both;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: color-mix(in srgb, Canvas 94%, #000 6%);
+  color: CanvasText;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+.llmtt-chatgpt-translation-card {
+  margin-top: 12px;
+}
+
+.llmtt-gemini-translation-card {
+  margin-top: 18px;
+  max-width: 100% !important;
+}
+
+.llmtt-translation-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.llmtt-translation-body {
+  white-space: pre-wrap;
+  line-height: 1.65;
+  font-size: 14px;
+}
+
+.llmtt-structured-translation-body {
+  display: grid;
+  gap: 14px;
+  white-space: normal;
+}
+
+.llmtt-thinking-section {
+  display: grid;
+  gap: 6px;
+}
+
+.llmtt-thinking-section-title {
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.llmtt-thinking-section-text {
+  white-space: pre-wrap;
+  line-height: 1.65;
+}
+
+.llmtt-translation-meta {
+  margin-top: 10px;
+  opacity: 0.78;
+  font-size: 12px;
+}
+
+.llmtt-translation-meta summary {
+  cursor: pointer;
+}
+
+.llmtt-translation-meta pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 240px;
+  margin: 8px 0 0;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(127, 127, 127, 0.12);
+}
+
+.llmtt-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translate(-50%, 18px);
+  z-index: 2147483647;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(18, 18, 22, 0.94);
+  color: #fff;
+  font: 13px/1.35 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+}
+
+.llmtt-toast-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.llmtt-picker-active,
+.llmtt-picker-active * {
+  cursor: crosshair !important;
+}
+
+.llmtt-picker-hover {
+  outline: 3px solid rgba(40, 40, 40, 0.9) !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 520px) {
+  .llmtt-launcher {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .llmtt-panel {
+    right: 10px;
+    bottom: 66px;
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 82px);
+  }
+}

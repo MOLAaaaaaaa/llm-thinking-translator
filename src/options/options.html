@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLM Thinking Translator 设置</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>LLM Thinking Translator</h1>
+      <p>翻译 ChatGPT、Claude、Gemini 网页端的英文思考内容。默认保持安静，调试信息只在调试模式下出现。</p>
+    </header>
+
+    <section class="card grid">
+      <label><input type="checkbox" id="enabled"> 启用插件</label>
+      <label><input type="checkbox" id="autoTranslate"> 自动翻译候选节点</label>
+      <label><input type="checkbox" id="debug"> 开启调试信息和候选框</label>
+      <label><input type="checkbox" id="preserveOriginal"> 保留原文并在下方插入翻译</label>
+    </section>
+
+    <section class="card two">
+      <label>最小文本长度
+        <input type="number" id="minTextLength" min="1" max="1000">
+      </label>
+      <label>最大文本长度
+        <input type="number" id="maxTextLength" min="200" max="20000">
+      </label>
+      <label>候选节点上限
+        <input type="number" id="candidateLimit" min="5" max="200">
+      </label>
+      <label>目标语言
+        <input type="text" id="targetLanguage" placeholder="zh-CN">
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>翻译接口</h2>
+      <label>提供方
+        <select id="translateProvider">
+          <option value="google_gtx">免费：Google GTX 非官方接口</option>
+          <option value="custom_http">自定义 HTTP POST</option>
+          <option value="openai_compatible">AI：OpenAI-compatible Chat Completions</option>
+        </select>
+      </label>
+
+      <div class="provider-panel" data-provider-panel="custom_http">
+        <label>HTTP 接口地址
+          <input type="url" id="customEndpoint" placeholder="https://example.com/translate">
+        </label>
+        <label>HTTP headers JSON
+          <textarea id="customHeaders" spellcheck="false" placeholder='{"Authorization":"Bearer xxx"}'></textarea>
+        </label>
+        <label>HTTP body 模板
+          <textarea id="customBodyTemplate" spellcheck="false"></textarea>
+        </label>
+        <p class="hint">模板变量：{{text}}、{{target}}、{{host}}、{{url}}。返回 JSON 时优先读取 translatedText、translation、text、result。</p>
+      </div>
+
+      <div class="provider-panel" data-provider-panel="openai_compatible">
+        <div class="subgrid">
+          <label>OpenAI API 地址
+            <input type="url" id="aiEndpoint" placeholder="https://api.openai.com/v1/chat/completions">
+          </label>
+          <label>模型
+            <input type="text" id="aiModel" placeholder="gpt-4o-mini">
+          </label>
+        </div>
+        <label>API Key
+          <input type="password" id="aiApiKey" autocomplete="off" placeholder="sk-...">
+        </label>
+        <label>系统提示词
+          <textarea id="aiSystemPrompt" spellcheck="false"></textarea>
+        </label>
+        <p class="hint">兼容 OpenAI、OpenRouter、DeepSeek 等 Chat Completions 接口。</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>自定义选择器，按域名覆盖</h2>
+      <p class="hint">示例：{"chatgpt.com":["details","[data-testid*=\\"thinking\\" i]"],"claude.ai":["[class*=\\"thinking\\" i]"]}</p>
+      <textarea id="customSelectorsByHost" class="code" spellcheck="false"></textarea>
+    </section>
+
+    <section class="card">
+      <h2>黑名单选择器</h2>
+      <p class="hint">每行一个 CSS selector。匹配到这些区域会跳过，避免翻译输入框、导航栏、代码块。</p>
+      <textarea id="blacklistSelectors" class="code" spellcheck="false"></textarea>
+    </section>
+
+    <section class="actions">
+      <button id="save">保存设置</button>
+      <button id="reset">恢复默认</button>
+      <span id="status"></span>
+    </section>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>

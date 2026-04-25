@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LLM Thinking Translator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>思考翻译</h1>
+      <p id="host">读取当前页面中</p>
+    </header>
+
+    <section class="switches">
+      <label><input type="checkbox" id="enabled"> 启用插件</label>
+      <label><input type="checkbox" id="autoTranslate"> 自动翻译</label>
+      <label><input type="checkbox" id="debug"> 调试模式</label>
+    </section>
+
+    <section class="stats">
+      <div><span id="candidateCount">0</span><small>候选节点</small></div>
+      <div><span id="translatedCount">0</span><small>已插入翻译</small></div>
+    </section>
+
+    <section class="actions">
+      <button id="rescan">重新扫描</button>
+      <button id="panel">切换面板</button>
+      <button id="picker">手动选取</button>
+      <button id="export">复制诊断包</button>
+    </section>
+
+    <footer>
+      <a href="../options/options.html" target="_blank">打开设置</a>
+      <span id="status"></span>
+    </footer>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -2,7 +2,9 @@
 # Usage: .\scripts\pack.ps1
 # Output zip is written to dist/ using the manifest version.
 
-param()
+param(
+    [string]$OutputFileName
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -14,9 +16,15 @@ $manifest = [System.IO.File]::ReadAllText(
 ) | ConvertFrom-Json
 $version = $manifest.version
 
-$projectRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
+$projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $distDir = Join-Path $projectRoot "dist"
-$outputFile = Join-Path $distDir "llm-thinking-translator-v$version.zip"
+$defaultOutputName = "llm-thinking-translator-v$version.zip"
+$outputName = if ([string]::IsNullOrWhiteSpace($OutputFileName)) {
+    $defaultOutputName
+} else {
+    $OutputFileName
+}
+$outputFile = Join-Path $distDir $outputName
 
 # Create dist directory
 if (-not (Test-Path $distDir)) {
@@ -25,7 +33,17 @@ if (-not (Test-Path $distDir)) {
 
 # Remove existing zip if present
 if (Test-Path $outputFile) {
-    Remove-Item $outputFile -Force
+    try {
+        Remove-Item $outputFile -Force -ErrorAction Stop
+    }
+    catch {
+        $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+        $baseName = [System.IO.Path]::GetFileNameWithoutExtension($outputName)
+        $extName = [System.IO.Path]::GetExtension($outputName)
+        $outputName = "$baseName-$timestamp$extName"
+        $outputFile = Join-Path $distDir $outputName
+        Write-Host "Output file is locked, fallback to: $outputFile"
+    }
 }
 
 # Files and directories to include
@@ -72,13 +90,28 @@ foreach ($item in $includeItems) {
     }
 }
 
-# Remove excluded files from staging
-foreach ($pattern in $excludePatterns) {
-    Get-ChildItem -Path $tempDir -Recurse -Filter $pattern | Remove-Item -Force
+# Create zip from staging directory.
+# Use forward slashes in entry names so Chromium/Edge unpackers treat paths correctly.
+Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$zip = [System.IO.Compression.ZipFile]::Open(
+    $outputFile,
+    [System.IO.Compression.ZipArchiveMode]::Create
+)
+try {
+    Get-ChildItem -Path $tempDir -Recurse -File | ForEach-Object {
+        $entryName = $_.FullName.Substring($tempDir.Length + 1).Replace('\', '/')
+        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile(
+            $zip,
+            $_.FullName,
+            $entryName,
+            [System.IO.Compression.CompressionLevel]::Optimal
+        ) | Out-Null
+    }
 }
-
-# Create zip from staging directory
-Compress-Archive -Path "$tempDir\*" -DestinationPath $outputFile -Force
+finally {
+    $zip.Dispose()
+}
 
 # Clean up staging
 Remove-Item $tempDir -Recurse -Force

@@ -8,10 +8,13 @@ $ErrorActionPreference = "Stop"
 
 # Read version from manifest.json
 $manifestPath = Join-Path $PSScriptRoot "..\manifest.json"
-$manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
+$utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+$manifest = [System.IO.File]::ReadAllText(
+    (Resolve-Path $manifestPath).Path, $utf8NoBom
+) | ConvertFrom-Json
 $version = $manifest.version
 
-$projectRoot = Join-Path $PSScriptRoot ".."
+$projectRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $distDir = Join-Path $projectRoot "dist"
 $outputFile = Join-Path $distDir "llm-thinking-translator-v$version.zip"
 
@@ -32,11 +35,8 @@ $includeItems = @(
     "src"
 )
 
-# Files and directories to exclude
-$excludePatterns = @(
-    ".DS_Store",
-    "Thumbs.db"
-)
+# File extensions that are text (need UTF-8 no-BOM handling)
+$textExtensions = @(".js", ".html", ".css", ".json", ".md")
 
 # Create temporary directory for staging
 $tempDir = Join-Path $distDir "staging"
@@ -45,13 +45,27 @@ if (Test-Path $tempDir) {
 }
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
-# Copy included items to staging
+# Copy files to staging, ensuring text files are written as UTF-8 without BOM
 foreach ($item in $includeItems) {
     $sourcePath = Join-Path $projectRoot $item
-    if (Test-Path $sourcePath) {
+    if (-not (Test-Path $sourcePath)) { continue }
+
+    if ((Get-Item $sourcePath).PSIsContainer) {
+        # Copy directory, then rewrite text files without BOM
+        $destDir = Join-Path $tempDir $item
+        Copy-Item -Path $sourcePath -Destination $destDir -Recurse -Force
+
+        Get-ChildItem -Path $destDir -Recurse -File | ForEach-Object {
+            if ($textExtensions -contains $_.Extension.ToLower()) {
+                $content = [System.IO.File]::ReadAllText($_.FullName, $utf8NoBom)
+                [System.IO.File]::WriteAllText($_.FullName, $content, $utf8NoBom)
+            }
+        }
+    } else {
         $destPath = Join-Path $tempDir $item
-        if ((Get-Item $sourcePath).PSIsContainer) {
-            Copy-Item -Path $sourcePath -Destination $destPath -Recurse -Force
+        if ($textExtensions -contains (Get-Item $sourcePath).Extension.ToLower()) {
+            $content = [System.IO.File]::ReadAllText($sourcePath, $utf8NoBom)
+            [System.IO.File]::WriteAllText($destPath, $content, $utf8NoBom)
         } else {
             Copy-Item -Path $sourcePath -Destination $destPath -Force
         }

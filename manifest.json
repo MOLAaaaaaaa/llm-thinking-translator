@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LLM Thinking Translator",
   "description": "Translate visible English reasoning and thinking panels on ChatGPT, Claude, and Gemini pages into Chinese.",
-  "version": "0.5.3",
+  "version": "0.5.3.1",
   "minimum_chrome_version": "116",
   "permissions": [
     "storage",

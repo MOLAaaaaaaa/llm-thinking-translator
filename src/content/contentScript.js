@@ -26,7 +26,7 @@
     candidateSeq: 0,
     pickerEnabled: false,
     hoveredElement: null,
-    version: '0.5.3'
+    version: '0.5.3.1'
   };
 
   const ACTIONABLE_MESSAGES = new Set([
@@ -501,7 +501,7 @@
       const valid = element.matches('div.text-token-text-secondary.origin-start > div.relative.flex, div.text-token-text-secondary.origin-start div.relative.flex.w-full.items-start.gap-2.overflow-clip');
       if (context.source === 'profile-selector' && !valid) return '未命中 ChatGPT 思考结构白名单';
       if (!element.closest('div.text-token-text-secondary.origin-start')) return '缺少 ChatGPT 思考外层结构';
-      if (element.closest('pre, code') || element.querySelector('pre, code')) return 'ChatGPT 代码/工具输出结构';
+      if (hasChatGptCodeOutputShape(element)) return 'ChatGPT 代码/工具输出结构';
     }
 
     if (platform === 'gemini') {
@@ -530,6 +530,35 @@
     if (!(element instanceof Element)) return false;
     if (element.closest('model-thoughts')) return false;
     return Boolean(element.closest('nav, [role="navigation"], aside, bard-sidenav, side-navigation-v2, mat-sidenav, [class*="sidebar" i], [class*="side-nav" i], [data-testid*="sidebar" i]'));
+  }
+
+  function hasChatGptCodeOutputShape(element) {
+    if (!(element instanceof Element)) return false;
+    if (element.matches('pre, code, kbd, samp') || element.closest('pre, code, kbd, samp')) return true;
+    if (element.querySelector('pre, kbd, samp')) return true;
+
+    const codeNodes = Array.from(element.querySelectorAll('code'));
+    if (!codeNodes.length) return false;
+
+    let totalCodeChars = 0;
+    let blockLikeCodeCount = 0;
+
+    for (const node of codeNodes) {
+      const text = normalizeText(node.innerText || node.textContent || '');
+      if (!text) continue;
+
+      totalCodeChars += text.length;
+
+      const parentTag = node.parentElement?.tagName?.toLowerCase() || '';
+      const inlineParent = /^(p|li|span|a|em|strong|small|mark|td|th|button|summary)$/.test(parentTag);
+      if (!inlineParent) blockLikeCodeCount += 1;
+      if (text.length >= 140 || text.includes('\n')) blockLikeCodeCount += 1;
+    }
+
+    if (blockLikeCodeCount >= 2) return true;
+    const hostText = normalizeText(element.innerText || element.textContent || '');
+    const codeRatio = totalCodeChars / Math.max(hostText.length, 1);
+    return totalCodeChars >= 260 || codeRatio >= 0.45;
   }
 
   async function translateCandidates(candidates, trigger) {

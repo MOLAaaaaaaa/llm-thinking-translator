@@ -4,6 +4,12 @@ LLM Thinking Translator is a Manifest V3 browser extension for Chromium-based br
 
 Important boundary: the extension only reads text that is already rendered in the page DOM and visible to the user. It does not access hidden model internals, bypass platform restrictions, or extract anything that the page itself has not exposed.
 
+## Screenshots
+
+| ChatGPT | Claude | Gemini |
+|:---:|:---:|:---:|
+| ![ChatGPT](https://img.cdn1.vip/i/69ec8e936344b_1777110675.webp) | ![Claude](https://img.cdn1.vip/i/69ec8e9310a10_1777110675.webp) | ![Gemini](https://img.cdn1.vip/i/69ec8e9300626_1777110675.webp) |
+
 ## Supported Sites
 
 - `https://chatgpt.com/*`
@@ -96,6 +102,12 @@ MIT License. See [LICENSE](LICENSE) for details.
 LLM Thinking Translator 是一个基于 Manifest V3 的浏览器扩展，适用于 Chromium 内核浏览器（Edge、Chrome、Brave 等）。它可以将 ChatGPT、Claude 和 Gemini 页面上可见的英文思考/推理面板翻译为简体中文。
 
 重要边界：本扩展仅读取已在页面 DOM 中渲染且对用户可见的文本。它不会访问隐藏的模型内部机制、绕过平台限制或提取页面本身未暴露的任何内容。
+
+## 效果截图
+
+| ChatGPT | Claude | Gemini |
+|:---:|:---:|:---:|
+| ![ChatGPT](https://img.cdn1.vip/i/69ec8e936344b_1777110675.webp) | ![Claude](https://img.cdn1.vip/i/69ec8e9310a10_1777110675.webp) | ![Gemini](https://img.cdn1.vip/i/69ec8e9300626_1777110675.webp) |
 
 ## 支持的站点
 

@@ -95,6 +95,29 @@ button#reset {
 }
 button#reset:hover { background: #eeeeee; }
 #status { color: #444; }
+.author-bar {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #d6d6d6;
+}
+.author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+}
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.author a {
+  color: #202020;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 @media (max-width: 760px) {
   .grid, .two, .subgrid { grid-template-columns: 1fr; }
 }

@@ -73,15 +73,6 @@ Chinese text is skipped. Only primarily English content is translated.
 
 ## Development
 
-Useful checks:
-
-```powershell
-node --check src/content/contentScript.js
-node --check src/background/background.js
-node --check src/options/options.js
-node --check src/popup/popup.js
-```
-
 Load this directory as an unpacked extension while developing.
 
 ## Building a Release
@@ -174,15 +165,6 @@ AI API 密钥存储在 `chrome.storage.local` 中，而非浏览器同步存储�
 中文文本会被跳过。仅翻译主要为英文的内容。
 
 ## 开发
-
-语法检查：
-
-```powershell
-node --check src/content/contentScript.js
-node --check src/background/background.js
-node --check src/options/options.js
-node --check src/popup/popup.js
-```
 
 开发时将本目录作为解压缩扩展加载即可。
 

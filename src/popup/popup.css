@@ -70,5 +70,21 @@ footer {
   font-size: 12px;
   color: #666;
 }
+.author {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 a { color: #202020; text-decoration: underline; text-underline-offset: 2px; }
 #status { text-align: right; }

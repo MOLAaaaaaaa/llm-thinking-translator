@@ -6,9 +6,7 @@ Important boundary: the extension only reads text that is already rendered in th
 
 ## Screenshots
 
-| ChatGPT | Claude | Gemini |
-|:---:|:---:|:---:|
-| ![ChatGPT](https://img.cdn1.vip/i/69ec8e936344b_1777110675.webp) | ![Claude](https://img.cdn1.vip/i/69ec8e9310a10_1777110675.webp) | ![Gemini](https://img.cdn1.vip/i/69ec8e9300626_1777110675.webp) |
+<img src="https://img.cdn1.vip/i/69ec8e936344b_1777110675.webp" width="30%"> <img src="https://img.cdn1.vip/i/69ec8e9310a10_1777110675.webp" width="30%"> <img src="https://img.cdn1.vip/i/69ec8e9300626_1777110675.webp" width="30%">
 
 ## Supported Sites
 
@@ -105,9 +103,7 @@ LLM Thinking Translator 是一个基于 Manifest V3 的浏览器扩展，适用�
 
 ## 效果截图
 
-| ChatGPT | Claude | Gemini |
-|:---:|:---:|:---:|
-| ![ChatGPT](https://img.cdn1.vip/i/69ec8e936344b_1777110675.webp) | ![Claude](https://img.cdn1.vip/i/69ec8e9310a10_1777110675.webp) | ![Gemini](https://img.cdn1.vip/i/69ec8e9300626_1777110675.webp) |
+<img src="https://img.cdn1.vip/i/69ec8e936344b_1777110675.webp" width="30%"> <img src="https://img.cdn1.vip/i/69ec8e9310a10_1777110675.webp" width="30%"> <img src="https://img.cdn1.vip/i/69ec8e9300626_1777110675.webp" width="30%">
 
 ## 支持的站点
 
